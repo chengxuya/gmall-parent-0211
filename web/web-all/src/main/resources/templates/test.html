@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red{width: 100px; height: 100px; background-color: red}
+        .green{width: 100px; height: 100px; background-color: green}
+    </style>
+</head>
+<body>
+   取值: <input th:text="${hello}" th:value="${hello}" value="1" text="单只取值"/>value里面是真正值,text是显示的值
+<div th:text="${hello}" style="color: red">123dsad</div>
+
+<br>
+判断1: <div th:if="${flag=='0'}">
+       判断2: <input  th:text="${hello}" th:value="${hello}" value="1" text="单只取值"/>
+   </div>
+   <br>
+
+判断: <input th:if="${flag=='1'}" th:text="${hello}" th:value="${hello}" value="1" text="单只取值"/>
+   <br>
+三元:
+   <div th:class="(${flag=='0'})?'red':'green'"></div>
+   <br/>
+循环:<br/>
+   <div th:each="liststr:${list}">
+   <input  th:text="${hello}" th:value="${liststr}" value="1" text="单只取值"/>
+   </div>
+   <br/>
+        和js交互
+   <script>
+       function a(h) {
+           alert("点我1:"+h)
+       }
+   </script>
+<a href="javascript:a('hello')" >点我下1</a>
+<a th:href="'javascript:b(\''+${hello}+'\')'">点下2</a>
+<!--   \'只是引号没有分割的含义   -->
+   <script>
+       function b(num) {
+           alert("点我2:"+num)
+       }
+   </script>
+</body>
+</html>

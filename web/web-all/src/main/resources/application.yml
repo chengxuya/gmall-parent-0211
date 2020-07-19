@@ -1,0 +1,17 @@
+#server:
+#  port: 8300
+#
+#spring:
+#  thymeleaf:
+#    mode: LEGACYHTML5
+##编码 可不用配置
+#    encoding: UTF-8
+##开发配置为false,避免修改模板还要重启服务器
+#    cache: false
+# #nacos
+#  cloud:
+#    nacos:
+#      discovery:
+#         server-addr:192.168.200.25:8848
+#  application:
+#    name: web-all
