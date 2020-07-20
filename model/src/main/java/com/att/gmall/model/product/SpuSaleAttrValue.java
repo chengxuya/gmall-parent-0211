@@ -40,7 +40,7 @@ public class SpuSaleAttrValue extends BaseEntity {
 	// 是否是默认选中状态
 //	@TableField("sale_attr_name")
 //	String isChecked;
-	@TableField(exist = false)
+	@TableField(exist = false) //表示当前属性不是数据库的字段.  游离字段不入库,只存在内存
 	String isChecked;
 
 	public static long getSerialVersionUID() {

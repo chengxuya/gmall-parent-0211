@@ -12,11 +12,14 @@ import com.att.gmall.product.service.SkuService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SkuServiceImpl implements SkuService {
@@ -94,5 +97,21 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setSkuImageList(skuImages);
 
         return skuInfo;
+    }
+
+    @Override
+    public BigDecimal getSkuPrice(Long skuId) {
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+
+        if(null != skuInfo) {
+            return skuInfo.getPrice();
+        }
+        return new BigDecimal("0");
+    }
+
+    @Override
+    public List<Map<String, Object>> getSkuValueIdsMap(Long spuId) {
+        List<Map<String, Object>> maps=  skuSaleAttrValueMapper.selectSaleAttrValueBySpu( spuId);
+        return maps;
     }
 }

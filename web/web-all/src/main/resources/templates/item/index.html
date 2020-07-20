@@ -1040,17 +1040,21 @@
             },
 
             spuSaleAttrFun(index, spuSaleAttrValueId) {
+                console.log()
+                alert(this.valuesSkuJson);
                 debugger
                 this.isAddCart = true
-                var valuesSkuJson = JSON.parse(this.valuesSkuJson);
+                var valuesSkuJson = JSON.parse(this.valuesSkuJson);//valuesSkuJson后台查询属性值组合对应skuid的map
 
-                //根据索引替换已选中的spuSaleAttrValueId
-                this.selectValuesSkus[index] = spuSaleAttrValueId
+                //根据索引替换已选中的spuSaleAttrValueId  //  selectValuesSkus 前台用户已选中的销售属性值组合信息的数组,通过init()方法初始化了
+            this.selectValuesSkus[index] = spuSaleAttrValueId
 
                 var valuesSku = this.selectValuesSkus.join('|')
                 //查看新组装的数据是否存在skuId，如果存在跳到该页面，如果不存在控制选中状态
-                var curSkuId = valuesSkuJson[valuesSku]
-
+                var curSkuId = valuesSkuJson[valuesSku]//通过json中的key获得json的value
+                // 将后台查询的属性值组合对应skuid的map的字符转化为一个json对象,然后用json[key]的js方法获得对应的skuid
+                alert(valuesSku);
+            alert(curSkuId)
                 if (curSkuId) {
                     if(curSkuId != this.skuId) {
                         window.location.href = '/' + curSkuId + '.html'
