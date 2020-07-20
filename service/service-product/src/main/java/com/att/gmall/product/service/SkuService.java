@@ -12,4 +12,6 @@ public interface SkuService {
     void onSale(Long skuId);
 
     void cancelSale(Long skuId);
+
+    SkuInfo getSkuInfo(Long skuId);
 }

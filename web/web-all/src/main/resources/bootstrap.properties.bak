@@ -1,0 +1,11 @@
+#配置中心独立地址
+spring.cloud.nacos.config.server-addr=192.168.200.25:8848
+#环境名
+spring.cloud.nacos.config.namespace=3b2bced2-ebfc-4121-9aa5-ff03302a8c2b
+#配置中心配置名(配置文件)
+spring.cloud.nacos.config.name=web-all
+#临时代理配置名
+#spring.application.name=nacos-provider
+
+#发布服务的环境
+#spring.cloud.nacos.discovery.namespace=id

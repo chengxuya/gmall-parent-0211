@@ -9,6 +9,7 @@ import com.att.gmall.product.mapper.SkuImageMapper;
 import com.att.gmall.product.mapper.SkuInfoMapper;
 import com.att.gmall.product.mapper.SkuSaleAttrValueMapper;
 import com.att.gmall.product.service.SkuService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,20 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setIsSale(0);
         skuInfoMapper.updateById(skuInfo);
         //将来要调用es删除已经下架的商品
+    }
+
+    @Override
+    public SkuInfo getSkuInfo(Long skuId) {
+        QueryWrapper<SkuInfo> queryWrapper = new QueryWrapper<>();
+                        queryWrapper.eq("id", skuId);
+        SkuInfo skuInfo = skuInfoMapper.selectOne(queryWrapper);
+
+        QueryWrapper<SkuImage> imageQueryWrapper = new QueryWrapper<>();
+        imageQueryWrapper.eq("sku_id", skuId);
+
+        List<SkuImage> skuImages = skuImageMapper.selectList(imageQueryWrapper);
+        skuInfo.setSkuImageList(skuImages);
+
+        return skuInfo;
     }
 }

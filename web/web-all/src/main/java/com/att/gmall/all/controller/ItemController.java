@@ -3,23 +3,28 @@ package com.att.gmall.all.controller;
 import com.att.gmall.common.result.Result;
 import com.att.gmall.item.client.ItemFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class ItemController { //第一类url web模块url  这种可以由用户直接访问
+//@Value("${myName}")
+//String myName;
 
     @Autowired
     private ItemFeignClient itemFeignClient;
     @RequestMapping("test")
-    public String test(Model model, ModelMap modelMap, Map map){
+    public String test(Model model, ModelMap modelMap, Map map, HttpServletRequest request, HttpSession session){
         modelMap.put("flag", "1");
         model.addAttribute("hello","hello thymeleaf");
         List<String> list=new ArrayList<>();
@@ -28,7 +33,11 @@ public class ItemController { //第一类url web模块url  这种可以由用户
         }
         model.addAttribute("list",list);
         model.addAttribute("num",0);
+        request.setAttribute("gname","<span style=\"color:green\">宝强</span>");
+        session.setAttribute("user","user");
 
+//        String myName=this.myName;
+//        System.out.println(myName);
         return "test";//index.html
     }
     /**
@@ -45,7 +54,7 @@ public class ItemController { //第一类url web模块url  这种可以由用户
 
         model.addAllAttributes(result.getData());//返回是一个map集合
 
-        return "test";//index.html
+        return "item/index";//index.html
     }
 
 

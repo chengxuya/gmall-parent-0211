@@ -10,6 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages= {"com.att.gmall"})
 public class ServiceItemApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(ServiceItemApplication.class, args);
     }

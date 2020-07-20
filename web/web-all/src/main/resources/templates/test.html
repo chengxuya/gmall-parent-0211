@@ -37,10 +37,16 @@
 <a href="javascript:a('hello')" >点我下1</a>
 <a th:href="'javascript:b(\''+${hello}+'\')'">点下2</a>
 <!--   \'只是引号没有分割的含义   -->
+
+   <br />
+   <p th:utext="${gname}">color</p>
+   <input th:value="${session.user}"/>
    <script>
+
        function b(num) {
            alert("点我2:"+num)
        }
+
    </script>
 </body>
 </html>

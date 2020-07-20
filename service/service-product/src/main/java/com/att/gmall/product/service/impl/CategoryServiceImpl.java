@@ -3,9 +3,11 @@ package com.att.gmall.product.service.impl;
 import com.att.gmall.model.product.BaseCategory1;
 import com.att.gmall.model.product.BaseCategory2;
 import com.att.gmall.model.product.BaseCategory3;
+import com.att.gmall.model.product.BaseCategoryView;
 import com.att.gmall.product.mapper.BaseCategory1Mapper;
 import com.att.gmall.product.mapper.BaseCategory2Mapper;
 import com.att.gmall.product.mapper.BaseCategory3Mapper;
+import com.att.gmall.product.mapper.BaseCategoryViewMapper;
 import com.att.gmall.product.service.CategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class CategoryServiceImpl implements CategoryService {
     private BaseCategory2Mapper baseCategory2Mapper;
     @Autowired
     private BaseCategory3Mapper baseCategory3Mapper;
+    @Autowired
+    private BaseCategoryViewMapper baseCategoryViewMapper;
+
     @Override
     public List<BaseCategory1> getCategory1() {
         //查询dao获得category1表的全部数据
@@ -45,5 +50,14 @@ public class CategoryServiceImpl implements CategoryService {
         List<BaseCategory3> baseCategory3s = baseCategory3Mapper.selectList(baseCategory3QueryWrapper);
 
         return baseCategory3s;
+    }
+
+    @Override
+    public BaseCategoryView getCategoryView(Long category3Id) {
+        QueryWrapper<BaseCategoryView> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category3_id", category3Id);
+        BaseCategoryView baseCategoryView = baseCategoryViewMapper.selectOne(queryWrapper);
+
+        return baseCategoryView;
     }
 }
