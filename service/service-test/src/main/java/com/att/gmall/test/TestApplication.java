@@ -1,21 +1,16 @@
-package com.att.gmall.all;
+package com.att.gmall.test;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@EnableDiscoveryClient
-@EnableFeignClients(basePackages= {"com.att.gmall"})
 @ComponentScan("com.att.gmall")
-public class WebAllApplication {
-
-public static void main(String[] args) {
-        SpringApplication.run(WebAllApplication.class, args);
+public class TestApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(TestApplication.class, args);
     }
-
 }

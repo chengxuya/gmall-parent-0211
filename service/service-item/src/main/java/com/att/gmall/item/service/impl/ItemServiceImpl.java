@@ -7,6 +7,7 @@ import com.att.gmall.model.product.BaseCategoryView;
 import com.att.gmall.model.product.SkuInfo;
 import com.att.gmall.model.product.SpuSaleAttr;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import springfox.documentation.spring.web.json.Json;
 
@@ -19,6 +20,9 @@ import java.util.Map;
 public class ItemServiceImpl implements ItemService {
      @Autowired
      ProductFeignClient productFeignClient;
+
+     @Autowired
+    RedisTemplate redisTemplate;
     // 1 商品基本信息
     //用缓存
     //
