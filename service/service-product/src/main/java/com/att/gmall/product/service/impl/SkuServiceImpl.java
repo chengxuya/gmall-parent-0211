@@ -3,6 +3,7 @@ package com.att.gmall.product.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.att.gmall.common.cache.GmallCache;
 import com.att.gmall.common.constant.RedisConst;
+import com.att.gmall.list.client.ListFeignClient;
 import com.att.gmall.model.product.SkuAttrValue;
 import com.att.gmall.model.product.SkuImage;
 import com.att.gmall.model.product.SkuInfo;
@@ -16,7 +17,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -41,7 +41,9 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     private SkuSaleAttrValueMapper skuSaleAttrValueMapper;
     @Autowired
-    RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private ListFeignClient feignListClient;
 
     @Transactional
     @Override
@@ -83,7 +85,9 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setId(skuId);
         skuInfo.setIsSale(1);
         skuInfoMapper.updateById(skuInfo);
+
         //将来要调用es插入已经上架的商品
+        feignListClient.upperGoods(skuId);
     }
 
     @Override
@@ -93,6 +97,8 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setIsSale(0);
         skuInfoMapper.updateById(skuInfo);
         //将来要调用es删除已经下架的商品
+        feignListClient.lowerGoods(skuId);
+
     }
 
 

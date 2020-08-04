@@ -1036,6 +1036,7 @@
                 if(!auth.isTokenExist() && !auth.isUserTempIdExist()) {
                     auth.setUserTempId()
                 }
+                //伪静态系统,,addcart不是跳转addcart的页面  是addcart  web的controller方法
                 window.location.href = 'http://cart.gmall.com/addCart.html?skuId=' + this.skuId + '&skuNum=' + this.skuNum
             },
 

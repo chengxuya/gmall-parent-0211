@@ -1,17 +1,17 @@
 package com.att.gmall.product.controller;
 
-import com.att.gmall.model.product.BaseCategoryView;
-import com.att.gmall.model.product.SkuInfo;
-import com.att.gmall.model.product.SpuSaleAttr;
-import com.att.gmall.product.service.CategoryService;
-import com.att.gmall.product.service.SkuService;
-import com.att.gmall.product.service.SpuService;
+import com.alibaba.fastjson.JSONObject;
+import com.att.gmall.common.result.Result;
+import com.att.gmall.model.list.SearchAttr;
+import com.att.gmall.model.product.*;
+import com.att.gmall.product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,11 @@ public class ProductApiController {
 
     @Autowired
     SpuService spuService;
+    @Autowired
+    AttrInfoService attrInfoService;
 
+    @Autowired
+    BaseTrademarkService baseTrademarkService;
     @GetMapping("inner/getSkuInfo/{skuId}")
     public  SkuInfo getSkuInfo(@PathVariable("skuId") Long skuId){
       SkuInfo skuInfo=  skuService.getSkuInfoNx(skuId);
@@ -61,5 +65,24 @@ public class ProductApiController {
    public List<Map<String, Object>> getSkuValueIdsMap(@PathVariable("spuId") Long spuId){
         List<Map<String, Object>> maps=  skuService.getSkuValueIdsMap(spuId);
        return maps;
+    }
+
+    @GetMapping("inner/getAttrList/{skuId}")
+    public List<SearchAttr> getAttrList(@PathVariable("skuId")Long skuId){
+        List<SearchAttr> SearchAttrs=   attrInfoService.getAttrList(skuId);
+   //     Result.ok(baseAttrInfos)
+        return SearchAttrs;
+    }
+    @GetMapping("inner/getTrademark/{tmId}")
+    public BaseTrademark getTrademark(@PathVariable("tmId") Long tmId){
+       BaseTrademark baseTrademark= baseTrademarkService.getTrademark(tmId);
+            return  baseTrademark;
+    }
+    @GetMapping("inner/getBaseCategoryList")
+    public Result getBaseCategoryList(HttpServletRequest request){
+        String userId=request.getHeader("userId");
+        List<JSONObject> baseCategoryList=categoryService.getBaseCategoryList();
+        return Result.ok(baseCategoryList);
+
     }
 }

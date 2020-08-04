@@ -1,6 +1,5 @@
 package com.att.gmall.item.controller;
 
-import com.att.gmall.client.ProductFeignClient;
 import com.att.gmall.common.result.Result;
 import com.att.gmall.item.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,16 @@ public class ItemApiController {
     @Autowired
     ItemService itemService;
 
-    @GetMapping("{skuId}")
+    @RequestMapping("{skuId}")
     Result<Map<String, Object>> getItem(@PathVariable("skuId") Long skuId){
         //调用product商品基础服务查询数据
-        Map<String,Object> map=itemService.getItem(skuId);
+//        long s1 = System.currentTimeMillis();
+//        Map<String,Object> map1=itemService.getItem(skuId);
+//        long s2= System.currentTimeMillis();
+        Map<String,Object> map=itemService.getItemThread(skuId);
+//        long s3 = System.currentTimeMillis();
+//        System.out.println("a " + (s2 - s1));
+//        System.out.println("b " + (s3 - s2));
         return Result.ok(map);
     }
 

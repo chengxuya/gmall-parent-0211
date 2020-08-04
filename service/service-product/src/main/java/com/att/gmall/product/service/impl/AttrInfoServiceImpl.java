@@ -1,5 +1,6 @@
 package com.att.gmall.product.service.impl;
 
+import com.att.gmall.model.list.SearchAttr;
 import com.att.gmall.model.product.BaseAttrInfo;
 import com.att.gmall.model.product.BaseAttrValue;
 import com.att.gmall.product.mapper.BaseAttrInfoMapper;
@@ -62,4 +63,13 @@ public class AttrInfoServiceImpl implements AttrInfoService {
             }
 
     }
+
+    @Override
+    public List<SearchAttr> getAttrList(Long skuId) {
+
+        List<SearchAttr> baseAttrInfos = baseAttrInfoMapper.selectBaseAttrInfoListBySkuId(skuId);
+
+        return baseAttrInfos;
+    }
+
 }
